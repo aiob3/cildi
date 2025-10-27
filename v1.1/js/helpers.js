@@ -5,6 +5,11 @@ that I couldn't be arsed to put into separate classes
 
 *****************************/
 
+// Escape RegExp special characters in a string
+function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 Math.TAU = Math.PI*2;
 
 window.HIGHLIGHT_COLOR = "rgba(193, 220, 255, 0.6)";
@@ -275,7 +280,7 @@ function _makeErrorFunc(msg){
 
 function _getParameterByName(name){
 	var url = window.location.href;
-	name = name.replace(/[\[\]]/g, "\\$&");
+	name = escapeRegExp(name);
 	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
 	results = regex.exec(url);
 	if (!results) return null;
