@@ -273,9 +273,14 @@ function _makeErrorFunc(msg){
 	};
 }
 
+// Utility to escape RegExp special characters for safe usage in patterns
+function escapeRegExp(str) {
+	return str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
+}
+
 function _getParameterByName(name){
 	var url = window.location.href;
-	name = name.replace(/[\[\]]/g, "\\$&");
+	name = escapeRegExp(name);
 	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
 	results = regex.exec(url);
 	if (!results) return null;
