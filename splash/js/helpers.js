@@ -275,9 +275,14 @@ function _makeErrorFunc(msg){
 	};
 }
 
+// Escape special regex characters in a string
+function escapeRegExp(string) {
+	return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
+}
+
 function _getParameterByName(name){
 	var url = window.location.href;
-	name = name.replace(/[\[\]]/g, "\\$&");
+	name = escapeRegExp(name);
 	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
 	results = regex.exec(url);
 	if (!results) return null;
